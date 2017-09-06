@@ -1,0 +1,103 @@
+﻿<UserControl
+    x:Class="UEK_Harmonogram.LessonItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UEK_Harmonogram"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:UEK_Harmonogram.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <converters:StringVisibilityIfExists x:Key="ShowIfExists" />
+        <converters:LessonTypeToColor x:Key="ConvertToColor" />
+        <converters:ChangeIfEmpty x:Key="ChangeIfEmpty" />
+    </UserControl.Resources>
+
+    <Grid IsHoldingEnabled="True" Margin="0,2">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ColorBlock.MinHeight" Value="60"/>
+                        <Setter Target="MPrzedmiot.FontSize" Value="12"/>
+                        <Setter Target="MExtra.FontSize" Value="12"/>
+
+                        <Setter Target="SecondaryStack.(Grid.Column)" Value="0"/>
+                        <Setter Target="SecondaryStack.(Grid.Row)" Value="1"/>
+
+                        <Setter Target="SSala.FontSize" Value="12"/>
+                        <Setter Target="SSala.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="SSala.Margin" Value="0"/>
+                        <Setter Target="SGrupa.FontSize" Value="12"/>
+                        <Setter Target="SGrupa.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="SGrupa.Margin" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Tablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ColorBlock.MinHeight" Value="40"/>
+                        <Setter Target="MPrzedmiot.FontSize" Value="14"/>
+                        <Setter Target="MExtra.FontSize" Value="12"/>
+
+                        <Setter Target="SecondaryStack.(Grid.Column)" Value="1"/>
+                        <Setter Target="SecondaryStack.(Grid.Row)" Value="0"/>
+
+                        <Setter Target="SSala.FontSize" Value="14"/>
+                        <Setter Target="SSala.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="SSala.Margin" Value="0,0,16,0"/>
+                        <Setter Target="SGrupa.FontSize" Value="12"/>
+                        <Setter Target="SGrupa.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="SGrupa.Margin" Value="0,0,16,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle MinHeight="40" x:Name="ColorBlock" Fill="{Binding Typ, Converter={StaticResource ConvertToColor}}" Width="8" Margin="0,2"/>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,16,0">
+            <TextBlock FontWeight="Bold" FontSize="12" Text="{Binding Start}"/>
+            <TextBlock Foreground="Gray" FontWeight="Bold" FontSize="12" Text="{Binding Stop}"/>
+        </StackPanel>
+        <Grid x:Name="MainGrid" Grid.Column="2" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="MainStack">
+                <TextBlock x:Name="MPrzedmiot" FontWeight="Bold" FontSize="14" Text="{Binding Converter={StaticResource ChangeIfEmpty}, ConverterParameter=SetTyp}" Margin="0,0,8,0"/>
+                <TextBlock x:Name="MExtra" FontSize="12" Text="{Binding ZKim}" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel x:Name="SecondaryStack" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock x:Name="SSala" FontSize="14" Text="{Binding Converter={StaticResource ChangeIfEmpty}, ConverterParameter=UwagaToSala}" HorizontalAlignment="Right" Margin="0,0,16,0"/>
+                <TextBlock x:Name="SGrupa" FontSize="12" Foreground="Gray" Text="{Binding NazwaGrupy}" HorizontalAlignment="Right" Margin="0,0,16,0"/>
+            </StackPanel>
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Foreground="Red" Text="{Binding Uwaga}" TextWrapping="Wrap" Visibility="{Binding Uwaga, Converter={StaticResource ShowIfExists}}"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="32481DanielBabraj.HarmonogramUEK" Publisher="CN=9EC7A4C8-2687-4EF7-B63E-F5693B4BBDE2" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="e13b73ac-ed99-43fc-98ff-5ff84294d681" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Harmonogram UEK</DisplayName>
+    <PublisherDisplayName>Daniel Babraj</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Mobile" MinVersion="10.0.10049.0" MaxVersionTested="10.0.10049.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.10049.0" MaxVersionTested="10.0.10049.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UEK_Harmonogram.App">
+      <uap:VisualElements DisplayName="Harmonogram UEK" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Aplikacja przeznaczona dla studentów oraz prowadzących zajęcia na uczelni Uniwersytetu Ekonomicznego w Krakowie. Pozwala na przeglądanie, a także na stworzenie spersonalizowanego harmonogramu zajęć z możliwością zapisu offline i automatyczną aktualizacją. Możliwe jest także przeglądanie planów kilku grup/prowadzących jednocześnie, pozwalając je porównać." BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

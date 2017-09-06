@@ -1,0 +1,84 @@
+﻿<Page
+    x:Class="UEK_Harmonogram.PageManagement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UEK_Harmonogram"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Flyout x:Name="DeleteConfirmationFlyout">
+            <StackPanel Margin="6" MaxWidth="320">
+                <TextBlock Text="Czy naprawdę chcesz usunąć zapisany zestaw grup?" TextWrapping="Wrap"/>
+                <Button Background="#d9534f" Margin="0,10,0,0" Content="Usuń" Width="120" Height="40" Click="btnDeleteAction_Click"/>
+            </StackPanel>
+        </Flyout>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+            <StackPanel Margin="10 10 10 60">
+                <TextBlock FontSize="24" FontWeight="SemiLight" Style="{StaticResource TitleTextBlockStyle}" Text="Zarządzanie grupami" VerticalAlignment="Top"/>
+
+                <ItemsControl ItemsSource="{x:Bind Packages}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:Zestaw">
+                            <Grid Background="#ededed" Margin="0 10 0 0">
+                                <StackPanel Margin="10">
+                                    <ItemsControl ItemsSource="{x:Bind Groups}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="local:Grupa">
+                                                <TextBlock Text="{x:Bind Nazwa}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Grid Margin="0 10 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="1" Background="#d9534f" Width="70" Height="40" Flyout="{StaticResource DeleteConfirmationFlyout}">
+                                            <SymbolIcon Symbol="Delete"/>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Button x:Name="btnAddZestaw" Width="120" Height="50" Margin="0,10,0,0" VerticalAlignment="Top" Click="btnAddZestaw_Click" Visibility="Collapsed">
+                    <SymbolIcon Symbol="Add"/>
+                </Button>
+
+                <StackPanel x:Name="indicatorPanel" Margin="10" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="Collapsed">
+                    <ProgressRing x:Name="indicatorProgressRing" Width="32" Height="32" IsActive="True" Visibility="Collapsed"/>
+                    <TextBlock x:Name="indicatorText" Margin="10 0 0 0" FontSize="16" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Margin="50 10 50 0" Text="Obecnie jest możliwe dodanie tylko jednego zestawu grup." Foreground="Gray" TextAlignment="Center" TextWrapping="Wrap"/>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="appbtnAccept" Label="Gotowe" Icon="Accept" Click="appbtnAccept_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
